@@ -20,7 +20,7 @@ jobs:
           channel: 'stable'
       - run: flutter pub get
       - run: mkdir -p test/reports 
-      - run: flutter test
+      - run: flutter test > test/reports/test-results.json
 
       - name: Test Report
         uses: dorny/test-reporter@v1
