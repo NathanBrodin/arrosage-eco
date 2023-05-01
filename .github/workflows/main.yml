@@ -2,46 +2,28 @@ name: Flutter Test
 
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
 
 jobs:
-  build-and-test:
-    name: "Flutter Build and Test"
+  build-test:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+      - uses: subosito/flutter-action@v1
         with:
           flutter-version: '3.7.7'
-          channel: stable
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter test --machine > test-results.json
 
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Run tests
-        run: flutter test --machine > test-report.json
-        continue-on-error: true
-
-      - name: Publish test results
+      - name: Test Report
         uses: dorny/test-reporter@v1
-        if: always()
+        if: success() || failure()
         with:
-          artifact: 'test-report.json'
-          name: 'Flutter Test Report'
-          path: 'test-report.json'
-          path-replace-backslashes: 'false'
-          reporter: 'flutter-json'
-          only-summary: 'false'
-          list-suites: 'all'
-          list-tests: 'all'
-          max-annotations: '10'
-          fail-on-error: 'true'
-          working-directory: ''
-          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Flutter Tests
+          path: test-results.json
+          reporter: flutter-json
