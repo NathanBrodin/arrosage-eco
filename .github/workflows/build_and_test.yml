@@ -33,13 +33,14 @@ jobs:
           name: codecov-upload
           fail_ci_if_error: true
 
-      - name: Run tests for the report
+            - name: Run tests for the report
         run: flutter test --coverage --machine > test_results.json
 
       - name: Publish Test Report
         uses: dorny/test-reporter@v1
-        if: always()
+        if: success() || failure()  
         with:
+          name: Flutter
           path: test_results.json
           reporter: flutter
           token: ${{ secrets.GITHUB_TOKEN }}
