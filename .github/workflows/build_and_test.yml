@@ -33,7 +33,7 @@ jobs:
           name: codecov-upload
           fail_ci_if_error: true
 
-            - name: Run tests for the report
+      - name: Run tests for the report
         run: flutter test --coverage --machine > test_results.json
 
       - name: Publish Test Report
