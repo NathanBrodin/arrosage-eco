@@ -42,5 +42,4 @@ jobs:
         with:
           name: Flutter
           path: test_results.json
-          reporter: flutter
-          token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: flutter-json
