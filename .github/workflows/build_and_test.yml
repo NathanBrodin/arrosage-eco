@@ -22,7 +22,7 @@ jobs:
         run: flutter pub get
 
       - name: Run tests
-        run: flutter test --coverage --machine > test_results.json
+        run: flutter test --coverage
 
       - name: Upload code coverage
         uses: codecov/codecov-action@v2
@@ -32,6 +32,9 @@ jobs:
           flags: unittests
           name: codecov-upload
           fail_ci_if_error: true
+
+      - name: Run tests for the report
+        run: flutter test --coverage --machine > test_results.json
 
       - name: Publish Test Report
         uses: dorny/test-reporter@v1
