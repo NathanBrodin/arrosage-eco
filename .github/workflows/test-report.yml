@@ -15,3 +15,4 @@ jobs:
           name: Flutter Tests
           path: test_results.json
           reporter: flutter-json
+          token: ${{ secrets.GH_PAT }}
