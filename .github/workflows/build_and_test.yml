@@ -1,4 +1,4 @@
-name: 'Flutter Build'
+name: 'Flutter Build and Test'
 
 on:
   push:
@@ -29,3 +29,19 @@ jobs:
         with:
           name: test-results
           path: test-results.json
+
+  report:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download test results
+        uses: actions/download-artifact@v3
+        with:
+          name: test-results
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        with:
+          name: Flutter Tests
+          path: test-results.json
+          reporter: flutter-json
