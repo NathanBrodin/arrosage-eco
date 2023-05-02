@@ -1,0 +1,59 @@
+name: 'Publish APK to release'
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.7.7'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test --coverage
+
+      - name: Build APK
+        if: success()
+        run: flutter build apk --release
+
+      - name: Upload APK
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-apk
+          path: build/app/outputs/apk/release/app-release.apk
+
+      - name: Publish APK to release
+        if: success()
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/app/outputs/apk/release/app-release.apk
+          asset_name: app-release.apk
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: |
+            🎉🚀 **Nouvelle version !** 🚀🎉
+            
+            Nous sommes ravis d'annoncer que la version `${{ github.ref }}` est maintenant disponible ! Cette version comprend les éléments suivants pour notre système d'arrosage automatique développé avec Flutter dans le cadre de notre projet étudiant (PST) pour l'école d'ingénieurs ESIEA :
+            
+            - 📱 **Application mobile APK :** Téléchargez l'APK app-release et profitez de nos dernières améliorations.
+            - 🌱 **Gestion des plantes :** Sélectionnez le type de plante arrosée par le système.
+            - 📊 **Mesures en temps réel :** Visualisez le niveau d'humidité, la température, le pourcentage d'ensoleillement et le pourcentage d'eau de la plante.
+            - 🐞 **Corrections de bugs :** Nous avons éliminé quelques bugs gênants pour vous offrir une expérience plus fluide.
+            - 🆕 **Nouvelles fonctionnalités :** Préparez-vous à explorer de nouvelles fonctionnalités qui améliorent l'utilisation de l'application.
+            
+            Merci pour votre soutien continu et nous espérons que vous apprécierez cette version !
+
