@@ -21,14 +21,16 @@ jobs:
         run: flutter pub get
 
       - name: Run tests
-        run: flutter test --machine > test-results.json
+        run: |
+          flutter pub global activate junitreport
+          flutter test --machine | flutter pub global run junitreport:tojunit > test-results.xml
 
       - name: Upload test results
         uses: actions/upload-artifact@v2
         if: success() || failure()
         with:
           name: test-results
-          path: test-results.json
+          path: test-results.xml
 
   report:
     needs: build
@@ -40,9 +42,6 @@ jobs:
           name: test-results
 
       - name: Test Report
-        uses: phoenix-actions/test-reporting@v8
-        id: test-report
+        uses: EnricoMi/publish-unit-test-result-action@v1
         with:
-          name: Flutter Tests
-          path: test-results.json
-          reporter: flutter-json
+          files: test-results.xml
