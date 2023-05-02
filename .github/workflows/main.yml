@@ -1,4 +1,4 @@
-name: Flutter Build and Test with Report
+name: Flutter Build and Test
 
 on:
   push:
@@ -20,29 +20,12 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Run unit tests
-        run: flutter test --coverage
+      - name: Run tests
+        run: flutter test --machine > test-results.json
 
       - name: Upload test results
         uses: actions/upload-artifact@v2
         if: success() || failure()
         with:
           name: test-results
-          path: coverage/lcov.info
-
-  report:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download test results artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: test-results
-
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        with:
-          name: Flutter Tests
-          path: '*.info'
-          reporter: 'flutter-json'
-          fail-on-error: 'true'
+          path: test-results.json
