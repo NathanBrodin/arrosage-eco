@@ -26,6 +26,9 @@ jobs:
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        permissions:
+          checks: write
+          pull-requests: write
         if: always()
         with:
           files: |
