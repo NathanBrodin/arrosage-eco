@@ -1,18 +1,31 @@
 import 'package:arrosage_eco/modele/infos.dart';
+import 'package:arrosage_eco/modele/plant.dart';
 import 'package:arrosage_eco/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  Infos infos =
-      Infos(battery: 90, moisture: 32, sun: 50, temperature: 23, water: 67);
-
-  MyApp({super.key});
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    Infos infos =
+        Infos(battery: 90, moisture: 32, sun: 50, temperature: 23, water: 67);
+    Map<String, dynamic> plantJson = {
+      'id': 2,
+      'name': 'Salade',
+      'moisture_min': 0.1,
+      'moisture_max': 0.3,
+      'temp_min_day': 20.0,
+      'temp_max_day': 26.0,
+      'temp_min_night': 17.0,
+      'temp_max_night': 22.0,
+    };
+
+    Plant currentPlant = Plant.fromJson(plantJson);
+
     return MaterialApp(
       title: 'Arrosage éco',
       theme: ThemeData(
@@ -43,6 +56,7 @@ class MyApp extends StatelessWidget {
       ),
       home: HomePage(
         infos: infos,
+        currentPlant: currentPlant,
         title: 'Bienvenue !',
         subtitle: "Votre système d'arrosage est au point",
       ),

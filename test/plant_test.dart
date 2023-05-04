@@ -14,7 +14,7 @@ void main() {
     // Check if the first plant has the correct data
     Plant firstPlant = plants.first;
     expect(firstPlant.id, 0);
-    expect(firstPlant.plant, 'Cactus');
+    expect(firstPlant.name, 'Cactus');
     expect(firstPlant.moistureMin, 10.0);
     expect(firstPlant.moistureMax, 30.0);
     expect(firstPlant.tempMinDay, 18.0);

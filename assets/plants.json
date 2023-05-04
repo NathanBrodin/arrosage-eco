@@ -1,7 +1,7 @@
 [
     {
         "id": 0,
-        "plant": "Cactus",
+        "name": "Cactus",
         "moisture_min": 10.0,
         "moisture_max": 30.0,
         "temp_min_day": 18.0,
@@ -11,7 +11,7 @@
     },
     {
         "id": 1,
-        "plant": "Tomates",
+        "name": "Tomates",
         "moisture_min": 10.0,
         "moisture_max": 30.0,
         "temp_min_day": 18.0,
@@ -21,7 +21,7 @@
     },
     {
         "id": 2,
-        "plant": "Salades",
+        "name": "Salades",
         "moisture_min": 10.0,
         "moisture_max": 30.0,
         "temp_min_day": 18.0,
@@ -31,7 +31,7 @@
     },
     {
         "id": 3,
-        "plant": "Tulipes",
+        "name": "Tulipes",
         "moisture_min": 10.0,
         "moisture_max": 30.0,
         "temp_min_day": 18.0,
@@ -41,7 +41,7 @@
     },
     {
         "id": 4,
-        "plant": "cactus",
+        "name": "cactus",
         "moisture_min": 10.0,
         "moisture_max": 30.0,
         "temp_min_day": 18.0,
@@ -51,7 +51,7 @@
     },
     {
         "id": 5,
-        "plant": "cactus",
+        "name": "cactus",
         "moisture_min": 10.0,
         "moisture_max": 30.0,
         "temp_min_day": 18.0,
@@ -61,7 +61,7 @@
     },
     {
         "id": 6,
-        "plant": "cactus",
+        "name": "cactus",
         "moisture_min": 10.0,
         "moisture_max": 30.0,
         "temp_min_day": 18.0,

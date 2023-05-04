@@ -1,6 +1,6 @@
 class Plant {
   final int id;
-  final String plant;
+  final String name;
   final double moistureMin;
   final double moistureMax;
   final double tempMinDay;
@@ -10,7 +10,7 @@ class Plant {
 
   Plant({
     required this.id,
-    required this.plant,
+    required this.name,
     required this.moistureMin,
     required this.moistureMax,
     required this.tempMinDay,
@@ -22,7 +22,7 @@ class Plant {
   factory Plant.fromJson(Map<String, dynamic> json) {
     return Plant(
       id: json['id'],
-      plant: json['plant'],
+      name: json['name'],
       moistureMin: json['moisture_min'],
       moistureMax: json['moisture_max'],
       tempMinDay: json['temp_min_day'],

@@ -1,8 +1,10 @@
 import 'package:arrosage_eco/components/battery.dart';
+import 'package:arrosage_eco/components/current_plant.dart';
 import 'package:arrosage_eco/components/small_card.dart';
 import 'package:arrosage_eco/components/sun.dart';
 import 'package:arrosage_eco/components/water.dart';
 import 'package:arrosage_eco/modele/infos.dart';
+import 'package:arrosage_eco/modele/plant.dart';
 import 'package:arrosage_eco/pages/selection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:arrosage_eco/components/header.dart';
@@ -11,10 +13,12 @@ class HomePage extends StatefulWidget {
   const HomePage(
       {Key? key,
       required this.infos,
+      required this.currentPlant,
       required this.title,
       required this.subtitle})
       : super(key: key);
   final Infos infos;
+  final Plant currentPlant;
   final String title;
   final String subtitle;
 
@@ -159,8 +163,14 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      color: Theme.of(context).colorScheme.primary),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: CurrentPlant(
+                    plant: widget.currentPlant,
+                  ),
                 ),
               ),
             ),
