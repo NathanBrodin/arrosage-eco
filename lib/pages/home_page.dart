@@ -1,10 +1,20 @@
+import 'package:arrosage_eco/components/battery.dart';
+import 'package:arrosage_eco/components/small_card.dart';
+import 'package:arrosage_eco/components/sun.dart';
+import 'package:arrosage_eco/components/water.dart';
+import 'package:arrosage_eco/modele/infos.dart';
 import 'package:arrosage_eco/pages/selection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:arrosage_eco/components/header.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.title, required this.subtitle})
+  const HomePage(
+      {Key? key,
+      required this.infos,
+      required this.title,
+      required this.subtitle})
       : super(key: key);
+  final Infos infos;
   final String title;
   final String subtitle;
 
@@ -43,9 +53,14 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(right: 10.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
-                              color: Theme.of(context).colorScheme.primary),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          child: Battery(
+                            percentage: widget.infos.battery,
+                          ),
                         ),
                       ),
                     ),
@@ -55,9 +70,14 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Container(
                           decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                              color: Colors.white),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: Sun(
+                            value: widget.infos.sun,
+                          ),
                         ),
                       ),
                     ),
@@ -80,6 +100,9 @@ class _HomePageState extends State<HomePage> {
                             ),
                             color: Colors.white,
                           ),
+                          child: Water(
+                            percentage: widget.infos.water,
+                          ),
                         ),
                       ),
                     ),
@@ -98,6 +121,11 @@ class _HomePageState extends State<HomePage> {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary),
+                                  child: SmallCard(
+                                    title:
+                                        "${widget.infos.moisture.toString()}%",
+                                    subtitle: "d'humidité",
+                                  ),
                                 ),
                               ),
                             ),
@@ -111,6 +139,10 @@ class _HomePageState extends State<HomePage> {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary),
+                                  child: SmallCard(
+                                      title:
+                                          "${widget.infos.temperature.toString()}°",
+                                      subtitle: "de température"),
                                 ),
                               ),
                             ),

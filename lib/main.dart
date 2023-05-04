@@ -1,12 +1,16 @@
+import 'package:arrosage_eco/modele/infos.dart';
 import 'package:arrosage_eco/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  Infos infos =
+      Infos(battery: 90, moisture: 32, sun: 50, temperature: 23, water: 67);
+
+  MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,11 +30,19 @@ class MyApp extends StatelessWidget {
             surface: Colors.white,
             onSurface: Colors.white),
         textTheme: const TextTheme(
-          titleLarge: TextStyle(fontSize: 26.0, fontFamily: 'Lato Black', color: Color(0xFF1B4139)),
-          bodyMedium: TextStyle(fontSize: 16.0, fontFamily: 'Lato Regular', color: Color(0xFF1B4139),),
+          titleLarge: TextStyle(
+              fontSize: 26.0,
+              fontFamily: 'Lato Black',
+              color: Color(0xFF1B4139)),
+          bodyMedium: TextStyle(
+            fontSize: 16.0,
+            fontFamily: 'Lato Regular',
+            color: Color(0xFF1B4139),
+          ),
         ),
       ),
-      home: const HomePage(
+      home: HomePage(
+        infos: infos,
         title: 'Bienvenue !',
         subtitle: "Votre système d'arrosage est au point",
       ),
