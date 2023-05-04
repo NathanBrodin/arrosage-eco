@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:arrosage_eco/components/header.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title, required this.subtitle});
+  const HomePage({Key? key, required this.title, required this.subtitle})
+      : super(key: key);
   final String title;
   final String subtitle;
 
@@ -15,8 +16,9 @@ class _HomePageState extends State<HomePage> {
   void openSelectionPage() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) =>
-            const SelectionPage(title: "Envie de changement ?", subtitle: "Sélectionnez le type de plante à arroser"),
+        builder: (context) => const SelectionPage(
+            title: "Envie de changement ?",
+            subtitle: "Sélectionnez le type de plante à arroser"),
       ),
     );
   }
@@ -26,7 +28,113 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: Header(title: widget.title, subtitle: widget.subtitle),
-      body: const Center(),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 90),
+                child: Row(
+                  children: [
+                    Flexible(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20)),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20)),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
+                      color: Theme.of(context).colorScheme.primary),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
