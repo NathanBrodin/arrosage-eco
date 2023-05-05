@@ -15,14 +15,14 @@ class MyApp extends StatelessWidget {
         Infos(battery: 90, moisture: 32, sun: 50, temperature: 23, water: 67);
 
     Map<String, dynamic> plantJson = {
-      'id': 2,
-      'name': 'Salade',
-      'moisture_min': 0.1,
-      'moisture_max': 0.3,
-      'temp_min_day': 20.0,
-      'temp_max_day': 26.0,
-      'temp_min_night': 17.0,
-      'temp_max_night': 22.0,
+      "id": 2,
+      "name": "Salades",
+      "moisture_min": 10.0,
+      "moisture_max": 30.0,
+      "temp_min_day": 18.0,
+      "temp_max_day": 32.0,
+      "temp_min_night": 10.0,
+      "temp_max_night": 13.0
     };
 
     Plant currentPlant = Plant.fromJson(plantJson);

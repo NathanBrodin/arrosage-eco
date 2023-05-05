@@ -5,7 +5,6 @@ import 'package:arrosage_eco/components/sun.dart';
 import 'package:arrosage_eco/components/water.dart';
 import 'package:arrosage_eco/modele/infos.dart';
 import 'package:arrosage_eco/modele/plant.dart';
-import 'package:arrosage_eco/pages/selection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:arrosage_eco/components/header.dart';
 
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 90.0), // TODO: CHANGER CA PAR 90.0
+                padding: const EdgeInsets.only(top: 90.0),
                 child: Row(
                   children: [
                     Flexible(

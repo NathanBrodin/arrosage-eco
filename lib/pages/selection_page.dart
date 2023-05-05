@@ -1,3 +1,5 @@
+import 'package:arrosage_eco/components/add_new.dart';
+import 'package:arrosage_eco/components/plant_item.dart';
 import 'package:flutter/material.dart';
 import 'package:arrosage_eco/components/header.dart';
 import 'package:arrosage_eco/modele/data.dart';
@@ -17,6 +19,8 @@ class SelectionPage extends StatefulWidget {
 
 class _SelectionPageState extends State<SelectionPage> {
   late Future<List<Plant>> plantsFuture;
+  late List<Plant> plants;
+  late int maxId;
 
   @override
   void initState() {
@@ -24,19 +28,35 @@ class _SelectionPageState extends State<SelectionPage> {
     plantsFuture = _loadPlants(widget.id);
   }
 
-Future<List<Plant>> _loadPlants(int specificId) async {
-  final data = Data();
-  List<Plant> plants = await data.loadPlantsFromJson();
+  Future<List<Plant>> _loadPlants(int specificId) async {
+    final data = Data();
+    plants = await data.loadPlantsFromJson();
+    
+    maxId = _getMaxId(plants);
 
-  final plantIndex = plants.indexWhere((plant) => plant.id == specificId);
-  if (plantIndex != -1) {
-    final plant = plants.removeAt(plantIndex);
-    plants.insert(0, plant);
+    final plantIndex = plants.indexWhere((plant) => plant.id == specificId);
+    if (plantIndex != -1) {
+      final plant = plants.removeAt(plantIndex);
+      plants.insert(0, plant);
+    }
+    return plants;
   }
 
-  return plants;
-}
+  int _getMaxId(List<Plant> plants) {
+    if (plants.isEmpty) {
+      return 0;
+    }
+    List<Plant> sortedPlants =
+        List.from(plants); // create a copy of the original list
+    sortedPlants.sort((a, b) => b.id.compareTo(a.id));
+    return sortedPlants.first.id;
+  }
 
+  void updatePlants(Plant newPlant) {
+    setState(() {
+      plants.insert(0, newPlant);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,88 +81,42 @@ Future<List<Plant>> _loadPlants(int specificId) async {
               return ListView.builder(
                 itemCount: plants.length,
                 itemBuilder: ((context, index) {
-                  Plant plant = plants[index];
-                  return Column(
-                    children: [
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(20.0),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          color: (index == 0) ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.primary,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(10.0),
-                                ),
-                                border: Border.all(
-                                  width: 3.0,
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                ),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  plant.name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                ),
-                                Text(
-                                  "${plant.tempMinDay}-${plant.tempMaxDay}° ${plant.moistureMin}-${plant.moistureMax}%",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                        color: Colors.white,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            InkWell(
-                              onTap: () {
-                                // TODO: Envoyer les nouvelles donnees au systeme
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                width: 60,
-                                height: 60,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                ),
-                                child: Icon(
-                                  Icons.arrow_forward_rounded,
-                                  size: 40,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  return PlantItem(
+                    index: index,
+                    plant: plants[index],
                   );
                 }),
               );
             }
           },
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: InkWell(
+        onTap: () {
+          showModalBottomSheet(
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (BuildContext context) {
+              return AddNew(
+                updatePlants: updatePlants,
+                maxId: maxId + 1,
+              );
+            },
+          );
+        },
+        child: Container(
+          width: 60,
+          height: 60,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+          ),
+          child: Icon(
+            Icons.add_rounded,
+            size: 40,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ),
     );

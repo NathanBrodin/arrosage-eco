@@ -31,42 +31,32 @@
     },
     {
         "id": 3,
-        "name": "Tulipes",
-        "moisture_min": 10.0,
-        "moisture_max": 30.0,
-        "temp_min_day": 18.0,
-        "temp_max_day": 32.0,
+        "name": "Lavendes",
+        "moisture_min": 20.0,
+        "moisture_max": 40.0,
+        "temp_min_day": 20.0,
+        "temp_max_day": 30.0,
         "temp_min_night": 10.0,
-        "temp_max_night": 13.0
+        "temp_max_night": 15.0
     },
     {
         "id": 4,
-        "name": "cactus",
-        "moisture_min": 10.0,
-        "moisture_max": 30.0,
+        "name": "Basilic",
+        "moisture_min": 30.0,
+        "moisture_max": 50.0,
         "temp_min_day": 18.0,
-        "temp_max_day": 32.0,
-        "temp_min_night": 10.0,
-        "temp_max_night": 13.0
+        "temp_max_day": 28.0,
+        "temp_min_night": 15.0,
+        "temp_max_night": 20.0
     },
     {
         "id": 5,
-        "name": "cactus",
-        "moisture_min": 10.0,
-        "moisture_max": 30.0,
+        "name": "Choux",
+        "moisture_min": 20.0,
+        "moisture_max": 40.0,
         "temp_min_day": 18.0,
-        "temp_max_day": 32.0,
+        "temp_max_day": 28.0,
         "temp_min_night": 10.0,
-        "temp_max_night": 13.0
-    },
-    {
-        "id": 6,
-        "name": "cactus",
-        "moisture_min": 10.0,
-        "moisture_max": 30.0,
-        "temp_min_day": 18.0,
-        "temp_max_day": 32.0,
-        "temp_min_night": 10.0,
-        "temp_max_night": 13.0
+        "temp_max_night": 15.0
     }
 ]
