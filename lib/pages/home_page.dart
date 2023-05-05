@@ -27,16 +27,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void openSelectionPage() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const SelectionPage(
-            title: "Envie de changement ?",
-            subtitle: "Sélectionnez le type de plante à arroser"),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 90),
+                padding: const EdgeInsets.only(top: 90.0), // TODO: CHANGER CA PAR 90.0
                 child: Row(
                   children: [
                     Flexible(

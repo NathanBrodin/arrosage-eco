@@ -39,7 +39,7 @@ class Sun extends StatelessWidget {
               Text(
                 "d'ensolleilement",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
               ),
             ],

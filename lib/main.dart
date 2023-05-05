@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Infos infos =
         Infos(battery: 90, moisture: 32, sun: 50, temperature: 23, water: 67);
+
     Map<String, dynamic> plantJson = {
       'id': 2,
       'name': 'Salade',
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
     Plant currentPlant = Plant.fromJson(plantJson);
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Arrosage éco',
       theme: ThemeData(
         fontFamily: 'Lato Regular',

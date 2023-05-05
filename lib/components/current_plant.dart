@@ -54,7 +54,7 @@ class CurrentPlant extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          SelectionPage(title: "title", subtitle: "subtitle"),
+                          SelectionPage(title: "Envie de changement ?", subtitle: "Sélectionnez le type de plante à arroser", id: plant.id,),
                     ),
                   );
                 },
@@ -71,7 +71,7 @@ class CurrentPlant extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
-              )
+              ),
             ],
           )
         ],

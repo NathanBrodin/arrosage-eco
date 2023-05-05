@@ -9,6 +9,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       elevation: 0,
       backgroundColor: Theme.of(context).colorScheme.background,
       title: Row(
@@ -28,8 +29,8 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           Container(
-            width: 60, // Adjust the width and height as needed
-            height: 60, // to change the circle's size
+            width: 60,
+            height: 60,
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
