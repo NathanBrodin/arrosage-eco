@@ -63,7 +63,8 @@ class Data {
           tempMinDay: 0,
           tempMaxDay: 0,
           tempMinNight: 0,
-          tempMaxNight: 0),
+          tempMaxNight: 0,
+          isCreated: true),
     );
 
     if (currentPlant.name == "Erreur") {

@@ -56,6 +56,12 @@ class _SelectionPageState extends State<SelectionPage> {
     });
   }
 
+  void removeCurrentPlant(Plant removedPlant) {
+    setState(() {
+      plants.removeWhere((plant) => plant.id == removedPlant.id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +76,7 @@ class _SelectionPageState extends State<SelectionPage> {
               index: index,
               plant: plants[index],
               updateCurrentPlant: widget.updateCurrentPlant,
+              removeCurrentPlant: removeCurrentPlant,
             );
           }),
         ),

@@ -7,6 +7,7 @@ class Plant {
   final double tempMaxDay;
   final double tempMinNight;
   final double tempMaxNight;
+  final bool isCreated;
 
   Plant({
     required this.id,
@@ -17,6 +18,7 @@ class Plant {
     required this.tempMaxDay,
     required this.tempMinNight,
     required this.tempMaxNight,
+    required this.isCreated,
   });
 
   factory Plant.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class Plant {
       tempMaxDay: json['temp_max_day'],
       tempMinNight: json['temp_min_night'],
       tempMaxNight: json['temp_max_night'],
+      isCreated: json['isCreated'],
     );
   }
 }

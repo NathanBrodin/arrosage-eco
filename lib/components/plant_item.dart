@@ -3,15 +3,17 @@ import 'package:arrosage_eco/modele/plant.dart';
 import 'package:flutter/material.dart';
 
 class PlantItem extends StatelessWidget {
-  const PlantItem({
-    Key? key,
-    required this.index,
-    required this.plant,
-    required this.updateCurrentPlant
-  }) : super(key: key);
+  const PlantItem(
+      {Key? key,
+      required this.index,
+      required this.plant,
+      required this.updateCurrentPlant,
+      required this.removeCurrentPlant})
+      : super(key: key);
   final int index;
   final Plant plant;
-    final Function(Plant) updateCurrentPlant;
+  final Function(Plant) updateCurrentPlant;
+  final Function(Plant) removeCurrentPlant;
 
   void _handleOnTap(BuildContext context) {
     updateCurrentPlant(plant);
@@ -21,6 +23,24 @@ class PlantItem extends StatelessWidget {
         context: context,
         priority: "info",
         text: "La nouvelle plante à bien été prise en compte",
+        icon: Icons
+            .more_vert_rounded, // priority_high / warning / exclamation pour "error"
+      ),
+    );
+  }
+
+  void _removePlant(BuildContext context) {
+    if (plant.isCreated == false) {
+      return;
+    }
+    
+    removeCurrentPlant(plant);
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      MySnackbar(
+        context: context,
+        priority: "info",
+        text: "La plante à bien été supprimé",
         icon: Icons
             .more_vert_rounded, // priority_high / warning / exclamation pour "error"
       ),
@@ -78,6 +98,9 @@ class PlantItem extends StatelessWidget {
                 ],
               ),
               InkWell(
+                onLongPress: () {
+                  _removePlant(context);
+                },
                 onTap: () {
                   _handleOnTap(context);
                   Navigator.pop(context);
