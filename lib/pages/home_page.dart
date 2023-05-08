@@ -15,13 +15,15 @@ class HomePage extends StatefulWidget {
       required this.plants,
       required this.currentPlant,
       required this.title,
-      required this.subtitle})
+      required this.subtitle,
+      required this.update})
       : super(key: key);
   final Infos infos;
   final List<Plant> plants;
   final Plant currentPlant;
   final String title;
   final String subtitle;
+  final Function(Plant, String) update;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -162,6 +164,7 @@ class _HomePageState extends State<HomePage> {
                   child: CurrentPlant(
                     plant: widget.currentPlant,
                     plants: widget.plants,
+                    update: widget.update,
                   ),
                 ),
               ),

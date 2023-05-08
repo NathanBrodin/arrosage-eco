@@ -21,6 +21,28 @@ class Plant {
     required this.isCreated,
   });
 
+  Plant.defaultPlant()
+      : id = 0,
+        name = 'Plant par défaut',
+        moistureMin = 0.0,
+        moistureMax = 1.0,
+        tempMinDay = 20.0,
+        tempMaxDay = 30.0,
+        tempMinNight = 15.0,
+        tempMaxNight = 25.0,
+        isCreated = true;
+
+  Plant.errorPlant()
+      : id = -1,
+        name = 'Erreur',
+        moistureMin = -1.0,
+        moistureMax = -1.0,
+        tempMinDay = -1.0,
+        tempMaxDay = -1.0,
+        tempMinNight = -1.0,
+        tempMaxNight = -1.0,
+        isCreated = false;
+
   factory Plant.fromJson(Map<String, dynamic> json) {
     return Plant(
       id: json['id'],
@@ -33,5 +55,19 @@ class Plant {
       tempMaxNight: json['temp_max_night'],
       isCreated: json['isCreated'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'moisture_min': moistureMin,
+      'moisture_max': moistureMax,
+      'temp_min_day': tempMinDay,
+      'temp_max_day': tempMaxDay,
+      'temp_min_night': tempMinNight,
+      'temp_max_night': tempMaxNight,
+      'isCreated': isCreated,
+    };
   }
 }

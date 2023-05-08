@@ -3,17 +3,21 @@ import 'package:arrosage_eco/pages/selection_page.dart';
 import 'package:flutter/material.dart';
 
 class CurrentPlant extends StatefulWidget {
-  CurrentPlant({Key? key, required this.plant, required this.plants})
-      : super(key: key);
+  CurrentPlant({
+    Key? key,
+    required this.plant,
+    required this.plants,
+    required this.update,
+  }) : super(key: key);
   Plant plant;
   final List<Plant> plants;
+  final Function(Plant, String) update;
 
   @override
   State<CurrentPlant> createState() => _CurrentPlantState();
 }
 
 class _CurrentPlantState extends State<CurrentPlant> {
-
   void updateCurrentPlant(Plant newPlant) {
     setState(() {
       widget.plant = newPlant;
@@ -68,12 +72,12 @@ class _CurrentPlantState extends State<CurrentPlant> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => SelectionPage(
-                        title: "Envie de changement ?",
-                        subtitle: "Sélectionnez le type de plante à arroser",
-                        plants: widget.plants,
-                        id: widget.plant.id,
-                        updateCurrentPlant: updateCurrentPlant
-                      ),
+                          title: "Envie de changement ?",
+                          subtitle: "Sélectionnez le type de plante à arroser",
+                          plants: widget.plants,
+                          id: widget.plant.id,
+                          updateCurrentPlant: updateCurrentPlant,
+                          update: widget.update),
                     ),
                   );
                 },

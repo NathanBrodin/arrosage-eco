@@ -77,6 +77,7 @@ class _MyAppState extends State<MyApp> {
               infos: data.infos,
               plants: data.plants,
               currentPlant: data.currentPlant,
+              update: data.updatePlants,
               title: 'Bienvenue !',
               subtitle: "Votre système d'arrosage est au point",
             );

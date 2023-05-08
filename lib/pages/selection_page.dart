@@ -12,12 +12,14 @@ class SelectionPage extends StatefulWidget {
     required this.id,
     required this.plants,
     required this.updateCurrentPlant,
+    required this.update,
   }) : super(key: key);
   final String title;
   final String subtitle;
   final int id;
   final List<Plant> plants;
   final Function(Plant) updateCurrentPlant;
+  final Function(Plant, String) update;
 
   @override
   _SelectionPageState createState() => _SelectionPageState();
@@ -53,12 +55,14 @@ class _SelectionPageState extends State<SelectionPage> {
   void updatePlants(Plant newPlant) {
     setState(() {
       plants.insert(0, newPlant);
+      widget.update(newPlant, "add");
     });
   }
 
   void removeCurrentPlant(Plant removedPlant) {
     setState(() {
       plants.removeWhere((plant) => plant.id == removedPlant.id);
+      widget.update(removedPlant, "remove");
     });
   }
 
