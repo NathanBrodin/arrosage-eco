@@ -1,38 +1,18 @@
-import 'package:arrosage_eco/components/battery.dart';
-import 'package:arrosage_eco/components/current_plant.dart';
-import 'package:arrosage_eco/components/small_card.dart';
-import 'package:arrosage_eco/components/sun.dart';
-import 'package:arrosage_eco/components/water.dart';
-import 'package:arrosage_eco/modele/infos.dart';
-import 'package:arrosage_eco/modele/plant.dart';
-import 'package:flutter/material.dart';
 import 'package:arrosage_eco/components/header.dart';
+import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage(
-      {Key? key,
-      required this.infos,
-      required this.plants,
-      required this.currentPlant,
-      required this.title,
-      required this.subtitle})
+class HomePageSkeleton extends StatelessWidget {
+  const HomePageSkeleton(
+      {Key? key, required this.title, required this.subtitle})
       : super(key: key);
-  final Infos infos;
-  final List<Plant> plants;
-  final Plant currentPlant;
   final String title;
   final String subtitle;
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: Header(title: widget.title, subtitle: widget.subtitle),
+      appBar: Header(title: title, subtitle: subtitle),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -53,9 +33,6 @@ class _HomePageState extends State<HomePage> {
                             ),
                             color: Theme.of(context).colorScheme.primary,
                           ),
-                          child: Battery(
-                            percentage: widget.infos.battery,
-                          ),
                         ),
                       ),
                     ),
@@ -69,9 +46,6 @@ class _HomePageState extends State<HomePage> {
                               Radius.circular(20),
                             ),
                             color: Colors.white,
-                          ),
-                          child: Sun(
-                            value: widget.infos.sun,
                           ),
                         ),
                       ),
@@ -95,9 +69,6 @@ class _HomePageState extends State<HomePage> {
                             ),
                             color: Colors.white,
                           ),
-                          child: Water(
-                            percentage: widget.infos.water,
-                          ),
                         ),
                       ),
                     ),
@@ -116,11 +87,6 @@ class _HomePageState extends State<HomePage> {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary),
-                                  child: SmallCard(
-                                    title:
-                                        "${widget.infos.moisture.toString()}%",
-                                    subtitle: "d'humidité",
-                                  ),
                                 ),
                               ),
                             ),
@@ -134,10 +100,6 @@ class _HomePageState extends State<HomePage> {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary),
-                                  child: SmallCard(
-                                      title:
-                                          "${widget.infos.temperature.toString()}°",
-                                      subtitle: "de température"),
                                 ),
                               ),
                             ),
@@ -158,10 +120,6 @@ class _HomePageState extends State<HomePage> {
                       Radius.circular(20),
                     ),
                     color: Theme.of(context).colorScheme.primary,
-                  ),
-                  child: CurrentPlant(
-                    plant: widget.currentPlant,
-                    plants: widget.plants,
                   ),
                 ),
               ),

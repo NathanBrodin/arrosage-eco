@@ -2,7 +2,8 @@ import 'package:arrosage_eco/modele/plant.dart';
 import 'package:flutter/material.dart';
 
 class AddNew extends StatefulWidget {
-  const AddNew({Key? key, required this.updatePlants, required  this.maxId}) : super(key: key);
+  const AddNew({Key? key, required this.updatePlants, required this.maxId})
+      : super(key: key);
   final Function(Plant) updatePlants;
   final int maxId;
 
@@ -187,7 +188,15 @@ class _AddNewState extends State<AddNew> {
                     InkWell(
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            Plant newPlant = Plant(id: widget.maxId, name: _controller.text, moistureMin: _currentRangeValuesMoisture.start, moistureMax: _currentRangeValuesMoisture.end, tempMinDay: _currentRangeValuesTemp.start, tempMaxDay: _currentRangeValuesTemp.end, tempMinNight: 0, tempMaxNight: 0);
+                            Plant newPlant = Plant(
+                                id: widget.maxId,
+                                name: _controller.text,
+                                moistureMin: _currentRangeValuesMoisture.start,
+                                moistureMax: _currentRangeValuesMoisture.end,
+                                tempMinDay: _currentRangeValuesTemp.start,
+                                tempMaxDay: _currentRangeValuesTemp.end,
+                                tempMinNight: 0,
+                                tempMaxNight: 0);
                             widget.updatePlants(newPlant);
 
                             Navigator.pop(context);

@@ -7,18 +7,22 @@ class PlantItem extends StatelessWidget {
     Key? key,
     required this.index,
     required this.plant,
+    required this.updateCurrentPlant
   }) : super(key: key);
   final int index;
   final Plant plant;
+    final Function(Plant) updateCurrentPlant;
 
   void _handleOnTap(BuildContext context) {
+    updateCurrentPlant(plant);
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       MySnackbar(
         context: context,
         priority: "info",
         text: "La nouvelle plante à bien été prise en compte",
-        icon: Icons.more_vert_rounded, // priority_high / warning / exclamation pour "error"
+        icon: Icons
+            .more_vert_rounded, // priority_high / warning / exclamation pour "error"
       ),
     );
   }

@@ -2,9 +2,23 @@ import 'package:arrosage_eco/modele/plant.dart';
 import 'package:arrosage_eco/pages/selection_page.dart';
 import 'package:flutter/material.dart';
 
-class CurrentPlant extends StatelessWidget {
-  const CurrentPlant({Key? key, required this.plant}) : super(key: key);
-  final Plant plant;
+class CurrentPlant extends StatefulWidget {
+  CurrentPlant({Key? key, required this.plant, required this.plants})
+      : super(key: key);
+  Plant plant;
+  final List<Plant> plants;
+
+  @override
+  State<CurrentPlant> createState() => _CurrentPlantState();
+}
+
+class _CurrentPlantState extends State<CurrentPlant> {
+
+  void updateCurrentPlant(Plant newPlant) {
+    setState(() {
+      widget.plant = newPlant;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +38,7 @@ class CurrentPlant extends StatelessWidget {
                     ),
               ),
               Text(
-                plant.name,
+                widget.plant.name,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       color: Colors.white,
                     ),
@@ -53,8 +67,13 @@ class CurrentPlant extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          SelectionPage(title: "Envie de changement ?", subtitle: "Sélectionnez le type de plante à arroser", id: plant.id,),
+                      builder: (context) => SelectionPage(
+                        title: "Envie de changement ?",
+                        subtitle: "Sélectionnez le type de plante à arroser",
+                        plants: widget.plants,
+                        id: widget.plant.id,
+                        updateCurrentPlant: updateCurrentPlant
+                      ),
                     ),
                   );
                 },

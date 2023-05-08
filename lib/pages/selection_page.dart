@@ -2,44 +2,42 @@ import 'package:arrosage_eco/components/add_new.dart';
 import 'package:arrosage_eco/components/plant_item.dart';
 import 'package:flutter/material.dart';
 import 'package:arrosage_eco/components/header.dart';
-import 'package:arrosage_eco/modele/data.dart';
 import 'package:arrosage_eco/modele/plant.dart';
 
 class SelectionPage extends StatefulWidget {
-  const SelectionPage(
-      {Key? key, required this.title, required this.subtitle, required this.id})
-      : super(key: key);
+  const SelectionPage({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.id,
+    required this.plants,
+    required this.updateCurrentPlant,
+  }) : super(key: key);
   final String title;
   final String subtitle;
   final int id;
+  final List<Plant> plants;
+  final Function(Plant) updateCurrentPlant;
 
   @override
   _SelectionPageState createState() => _SelectionPageState();
 }
 
 class _SelectionPageState extends State<SelectionPage> {
-  late Future<List<Plant>> plantsFuture;
   late List<Plant> plants;
   late int maxId;
 
   @override
   void initState() {
     super.initState();
-    plantsFuture = _loadPlants(widget.id);
-  }
-
-  Future<List<Plant>> _loadPlants(int specificId) async {
-    final data = Data();
-    plants = await data.loadPlantsFromJson();
-    
+    plants = widget.plants;
     maxId = _getMaxId(plants);
 
-    final plantIndex = plants.indexWhere((plant) => plant.id == specificId);
+    final plantIndex = plants.indexWhere((plant) => plant.id == widget.id);
     if (plantIndex != -1) {
       final plant = plants.removeAt(plantIndex);
       plants.insert(0, plant);
     }
-    return plants;
   }
 
   int _getMaxId(List<Plant> plants) {
@@ -65,30 +63,15 @@ class _SelectionPageState extends State<SelectionPage> {
       appBar: Header(title: widget.title, subtitle: widget.subtitle),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: FutureBuilder<List<Plant>>(
-          future: plantsFuture,
-          builder: (BuildContext context, AsyncSnapshot<List<Plant>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text('Erreur lors du chargement.'),
-              );
-            } else {
-              final plants = snapshot.data!;
-              return ListView.builder(
-                itemCount: plants.length,
-                itemBuilder: ((context, index) {
-                  return PlantItem(
-                    index: index,
-                    plant: plants[index],
-                  );
-                }),
-              );
-            }
-          },
+        child: ListView.builder(
+          itemCount: plants.length,
+          itemBuilder: ((context, index) {
+            return PlantItem(
+              index: index,
+              plant: plants[index],
+              updateCurrentPlant: widget.updateCurrentPlant,
+            );
+          }),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,

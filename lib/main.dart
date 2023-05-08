@@ -1,32 +1,34 @@
-import 'package:arrosage_eco/modele/infos.dart';
-import 'package:arrosage_eco/modele/plant.dart';
+import 'package:arrosage_eco/modele/data.dart';
 import 'package:arrosage_eco/pages/home_page.dart';
+import 'package:arrosage_eco/pages/home_page_skeleton.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late final Future<Data> dataFuture;
+
+  _MyAppState() {
+    dataFuture = _initData();
+  }
+
+  Future<Data> _initData() async {
+    Data data = Data();
+    await data.init();
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
-    Infos infos =
-        Infos(battery: 90, moisture: 32, sun: 50, temperature: 23, water: 67);
-
-    Map<String, dynamic> plantJson = {
-      "id": 2,
-      "name": "Salades",
-      "moisture_min": 10.0,
-      "moisture_max": 30.0,
-      "temp_min_day": 18.0,
-      "temp_max_day": 32.0,
-      "temp_min_night": 10.0,
-      "temp_max_night": 13.0
-    };
-
-    Plant currentPlant = Plant.fromJson(plantJson);
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Arrosage éco',
@@ -46,9 +48,10 @@ class MyApp extends StatelessWidget {
             onSurface: Colors.white),
         textTheme: const TextTheme(
           titleLarge: TextStyle(
-              fontSize: 26.0,
-              fontFamily: 'Lato Black',
-              color: Color(0xFF1B4139)),
+            fontSize: 26.0,
+            fontFamily: 'Lato Black',
+            color: Color(0xFF1B4139),
+          ),
           bodyMedium: TextStyle(
             fontSize: 16.0,
             fontFamily: 'Lato Regular',
@@ -56,11 +59,34 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: HomePage(
-        infos: infos,
-        currentPlant: currentPlant,
-        title: 'Bienvenue !',
-        subtitle: "Votre système d'arrosage est au point",
+      home: FutureBuilder<Data>(
+        future: dataFuture,
+        builder: (BuildContext context, AsyncSnapshot<Data> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Center(
+                child: Text(
+                  'Error: ${snapshot.error}',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              );
+            }
+
+            Data data = snapshot.data!;
+            return HomePage(
+              infos: data.infos,
+              plants: data.plants,
+              currentPlant: data.currentPlant,
+              title: 'Bienvenue !',
+              subtitle: "Votre système d'arrosage est au point",
+            );
+          } else {
+            return const HomePageSkeleton(
+              title: 'Chargement !',
+              subtitle: "Vos données arrivent d'ici peu",
+            );
+          }
+        },
       ),
     );
   }
