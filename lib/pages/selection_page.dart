@@ -1,5 +1,6 @@
 import 'package:arrosage_eco/components/add_new.dart';
 import 'package:arrosage_eco/components/plant_item.dart';
+import 'package:arrosage_eco/pages/base_page.dart';
 import 'package:flutter/material.dart';
 import 'package:arrosage_eco/components/header.dart';
 import 'package:arrosage_eco/modele/plant.dart';
@@ -68,11 +69,10 @@ class _SelectionPageState extends State<SelectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: Header(title: widget.title, subtitle: widget.subtitle),
+    return BasePage(
+      header: Header(title: widget.title, subtitle: widget.subtitle),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
         child: ListView.builder(
           itemCount: plants.length,
           itemBuilder: ((context, index) {

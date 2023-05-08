@@ -33,7 +33,7 @@ class PlantItem extends StatelessWidget {
     if (plant.isCreated == false) {
       return;
     }
-    
+
     removeCurrentPlant(plant);
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
@@ -51,9 +51,6 @@ class PlantItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 20.0,
-        ),
         Container(
           padding: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
@@ -121,6 +118,9 @@ class PlantItem extends StatelessWidget {
               ),
             ],
           ),
+        ),
+        const SizedBox(
+          height: 20.0,
         ),
       ],
     );

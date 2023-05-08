@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Header extends StatelessWidget implements PreferredSizeWidget {
+class Header extends StatelessWidget {
   const Header({
     Key? key,
     required this.title,
@@ -12,14 +12,15 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      elevation: 0,
-      backgroundColor: Theme.of(context).colorScheme.background,
-      title: Row(
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      height: screenHeight * 0.25,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -44,7 +45,4 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

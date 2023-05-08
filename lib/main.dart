@@ -82,10 +82,7 @@ class _MyAppState extends State<MyApp> {
               subtitle: "Votre système d'arrosage est au point",
             );
           } else {
-            return const HomePageSkeleton(
-              title: 'Chargement !',
-              subtitle: "Vos données arrivent d'ici peu",
-            );
+            return const HomePageSkeleton(title: "Chargement !", subtitle: "Vos données arrivent d'ici peu");
           }
         },
       ),
