@@ -15,18 +15,8 @@ class PlantItem extends StatelessWidget {
   final Function(Plant) updateCurrentPlant;
   final Function(Plant) removeCurrentPlant;
 
-  void _handleOnTap(BuildContext context) {
+  void _handleOnTap() {
     updateCurrentPlant(plant);
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      MySnackbar(
-        context: context,
-        priority: "info",
-        text: "La nouvelle plante à bien été prise en compte",
-        icon: Icons
-            .more_vert_rounded, // priority_high / warning / exclamation pour "error"
-      ),
-    );
   }
 
   void _removePlant(BuildContext context) {
@@ -99,7 +89,7 @@ class PlantItem extends StatelessWidget {
                   _removePlant(context);
                 },
                 onTap: () {
-                  _handleOnTap(context);
+                  _handleOnTap();
                   Navigator.pop(context);
                 },
                 child: Container(

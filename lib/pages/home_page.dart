@@ -17,7 +17,9 @@ class HomePage extends StatefulWidget {
       required this.currentPlant,
       required this.title,
       required this.subtitle,
-      required this.update})
+      required this.update,
+      required this.sendCurrentPlant
+      })
       : super(key: key);
   final Infos infos;
   final List<Plant> plants;
@@ -25,6 +27,7 @@ class HomePage extends StatefulWidget {
   final String title;
   final String subtitle;
   final Function(Plant, String) update;
+  final Function(Plant) sendCurrentPlant;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -169,6 +172,7 @@ class _HomePageState extends State<HomePage> {
                       plant: widget.currentPlant,
                       plants: widget.plants,
                       update: widget.update,
+                      sendCurrentPlant: widget.sendCurrentPlant,
                     ),
                   ),
                 ),

@@ -1,17 +1,20 @@
+import 'package:arrosage_eco/components/my_snackbar.dart';
 import 'package:arrosage_eco/modele/plant.dart';
 import 'package:arrosage_eco/pages/selection_page.dart';
 import 'package:flutter/material.dart';
 
 class CurrentPlant extends StatefulWidget {
-  CurrentPlant({
-    Key? key,
-    required this.plant,
-    required this.plants,
-    required this.update,
-  }) : super(key: key);
+  CurrentPlant(
+      {Key? key,
+      required this.plant,
+      required this.plants,
+      required this.update,
+      required this.sendCurrentPlant})
+      : super(key: key);
   Plant plant;
   final List<Plant> plants;
   final Function(Plant, String) update;
+  final Function(Plant) sendCurrentPlant;
 
   @override
   State<CurrentPlant> createState() => _CurrentPlantState();
@@ -19,6 +22,19 @@ class CurrentPlant extends StatefulWidget {
 
 class _CurrentPlantState extends State<CurrentPlant> {
   void updateCurrentPlant(Plant newPlant) {
+    widget.sendCurrentPlant(newPlant);
+
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+        MySnackbar(
+          context: context,
+          priority: "info",
+          text: "La nouvelle plante à bien été prise en compte",
+          icon: Icons
+              .more_vert_rounded, // priority_high / warning / exclamation pour "error"
+        ),
+      );
+
     setState(() {
       widget.plant = newPlant;
     });

@@ -4,13 +4,16 @@ import 'package:arrosage_eco/modele/infos.dart';
 import 'package:arrosage_eco/modele/plant.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class Data {
   late List<Plant> plants;
   late Infos infos;
   late Plant currentPlant;
+  SharedPreferences? prefs;
+  String ipAddress = "";
 
-  Data() {
+  Data({this.prefs}) {
     init();
   }
 
@@ -20,21 +23,39 @@ class Data {
     currentPlant = await getCurrentPlant();
   }
 
-  static Future<Infos> getFromDevice() async {
-    // Simule le chargement dû à l'envoie de donnée depuis le systeme
-    await Future.delayed(
-      const Duration(
-        seconds: 1,
-      ),
+  Future<Infos> getFromDevice() async {
+    final response =
+        await http.get(Uri.parse('$ipAddress/data'));
+
+    if (response.statusCode == 200) {
+      final infos = json.decode(response.body);
+
+      return Infos(
+          battery: infos['battery'],
+          moisture: infos['moisture'],
+          sun: infos['sun'],
+          temperature: infos['temperature'],
+          water: infos['water'],
+          currentPlantId: infos['currentPlantId']);
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  Future<void> sendToDevice(Plant newPlant) async {
+    final response = await http.post(
+      Uri.parse('$ipAddress/send-data'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(newPlant.toJson()),
     );
 
-    return Infos(
-        battery: 90,
-        moisture: 32,
-        sun: 34,
-        temperature: 23,
-        water: 67,
-        currentPlantId: 0);
+    if (response.statusCode == 200) {
+      print('Data sent successfully');
+    } else {
+      throw Exception('Failed to send data');
+    }
   }
 
   static Future<List<Plant>> loadPlantsFromJson() async {
@@ -70,10 +91,10 @@ class Data {
   }
 
   void updatePlants(Plant plant, String action) {
-    if(action == "add") {
+    if (action == "add") {
       addPlant(plant);
     }
-    if(action == "remove") {
+    if (action == "remove") {
       removePlant(plant);
     }
   }

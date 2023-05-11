@@ -78,6 +78,7 @@ class _MyAppState extends State<MyApp> {
               plants: data.plants,
               currentPlant: data.currentPlant,
               update: data.updatePlants,
+              sendCurrentPlant: data.sendToDevice,
               title: 'Bienvenue !',
               subtitle: "Votre système d'arrosage est au point",
             );
