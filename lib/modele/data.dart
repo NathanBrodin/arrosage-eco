@@ -11,7 +11,7 @@ class Data {
   late Infos infos;
   late Plant currentPlant;
   SharedPreferences? prefs;
-  String ipAddress = "";
+  String? ipAddress;
 
   Data({this.prefs}) {
     init();
@@ -19,13 +19,15 @@ class Data {
 
   Future<void> init() async {
     plants = await loadPlants();
+    ipAddress = await loadIp();
     infos = await getFromDevice();
     currentPlant = await getCurrentPlant();
   }
 
   Future<Infos> getFromDevice() async {
-    final response =
-        await http.get(Uri.parse('$ipAddress/data'));
+    ipAddress = await loadIp();
+
+    final response = await http.get(Uri.parse('http://$ipAddress:8080/data'));
 
     if (response.statusCode == 200) {
       final infos = json.decode(response.body);
@@ -44,7 +46,7 @@ class Data {
 
   Future<void> sendToDevice(Plant newPlant) async {
     final response = await http.post(
-      Uri.parse('$ipAddress/send-data'),
+      Uri.parse('http://$ipAddress:8080/send-data'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -88,6 +90,22 @@ class Data {
     }
 
     return plantsFromJson;
+  }
+
+  Future<void> saveIp(String ip) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('ip', ip);
+  }
+
+  Future<String?> loadIp() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? ip = prefs.getString('ip');
+
+    if(ip == null) {
+      throw("IP address not stored");
+    }
+
+    return ip;
   }
 
   void updatePlants(Plant plant, String action) {

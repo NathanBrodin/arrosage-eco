@@ -18,8 +18,8 @@ class HomePage extends StatefulWidget {
       required this.title,
       required this.subtitle,
       required this.update,
-      required this.sendCurrentPlant
-      })
+      required this.sendCurrentPlant,
+      required this.changeIp})
       : super(key: key);
   final Infos infos;
   final List<Plant> plants;
@@ -28,6 +28,7 @@ class HomePage extends StatefulWidget {
   final String subtitle;
   final Function(Plant, String) update;
   final Function(Plant) sendCurrentPlant;
+  final Function(String) changeIp;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -39,9 +40,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: BasePage(
-        header: const Header(
-            title: 'Bienvenue !',
-            subtitle: "Votre système d'arrosage est au point"),
+        header: Header(
+          title: 'Bienvenue !',
+          subtitle: "Votre système d'arrosage est au point",
+          changeIp: widget.changeIp,
+        ),
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(

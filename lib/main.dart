@@ -1,3 +1,4 @@
+import 'package:arrosage_eco/components/add_ip.dart';
 import 'package:arrosage_eco/modele/data.dart';
 import 'package:arrosage_eco/pages/home_page.dart';
 import 'package:arrosage_eco/pages/home_page_skeleton.dart';
@@ -16,15 +17,27 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final Future<Data> dataFuture;
+  late final Data data;
 
   _MyAppState() {
     dataFuture = _initData();
   }
 
   Future<Data> _initData() async {
-    Data data = Data();
-    await data.init();
-    return data;
+    try {
+      data = Data();
+      await data.init();
+      return data;
+    } catch (e) {
+      throw Exception('Failed to initialize data: $e');
+    }
+  }
+
+  void confirmIp(String ip) {
+    setState(() {
+      data.saveIp(ip);
+      dataFuture = _initData();
+    });
   }
 
   @override
@@ -64,12 +77,7 @@ class _MyAppState extends State<MyApp> {
         builder: (BuildContext context, AsyncSnapshot<Data> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              );
+              return AddIp(confirmIp: confirmIp);
             }
 
             Data data = snapshot.data!;
@@ -81,9 +89,12 @@ class _MyAppState extends State<MyApp> {
               sendCurrentPlant: data.sendToDevice,
               title: 'Bienvenue !',
               subtitle: "Votre système d'arrosage est au point",
+              changeIp: confirmIp,
             );
           } else {
-            return const HomePageSkeleton(title: "Chargement !", subtitle: "Vos données arrivent d'ici peu");
+            return const HomePageSkeleton(
+                title: "Chargement !",
+                subtitle: "Vos données arrivent d'ici peu");
           }
         },
       ),

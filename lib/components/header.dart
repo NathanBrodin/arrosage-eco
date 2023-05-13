@@ -1,3 +1,4 @@
+import 'package:arrosage_eco/components/add_ip.dart';
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
@@ -5,10 +6,12 @@ class Header extends StatelessWidget {
     Key? key,
     required this.title,
     required this.subtitle,
+    this.changeIp,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
+  final Function(String)? changeIp;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +36,22 @@ class Header extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            width: 60,
-            height: 60,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
+          InkWell(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AddIp(confirmIp: changeIp);
+                },
+              );
+            },
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
             ),
           ),
         ],

@@ -1,3 +1,4 @@
+import 'package:arrosage_eco/components/animated_color_container.dart';
 import 'package:arrosage_eco/components/header.dart';
 import 'package:arrosage_eco/pages/base_page.dart';
 import 'package:flutter/material.dart';
@@ -23,30 +24,16 @@ class HomePageSkeleton extends StatelessWidget {
                 children: [
                   Flexible(
                     flex: 2,
-                    child: Padding(
+                    child: AnimatedColorContainer(
                       padding: const EdgeInsets.only(right: 10.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
                     ),
                   ),
                   Flexible(
                     flex: 1,
-                    child: Padding(
+                    child: AnimatedColorContainer(
                       padding: const EdgeInsets.only(left: 10.0),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          color: Colors.white,
-                        ),
-                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(20)),
                     ),
                   ),
                 ],
@@ -59,16 +46,10 @@ class HomePageSkeleton extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Colors.white,
-                          ),
-                        ),
+                      child: AnimatedColorContainer(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
                       ),
                     ),
                     Expanded(
@@ -77,29 +58,17 @@ class HomePageSkeleton extends StatelessWidget {
                         child: Column(
                           children: [
                             Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20)),
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary),
-                                ),
+                              child: AnimatedColorContainer(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
                               ),
                             ),
                             Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20)),
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary),
-                                ),
+                              child: AnimatedColorContainer(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
                               ),
                             ),
                           ],
@@ -112,16 +81,9 @@ class HomePageSkeleton extends StatelessWidget {
             ),
             Expanded(
               flex: 210,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
+              child: AnimatedColorContainer(
+                padding: const EdgeInsets.only(top: 20.0),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
               ),
             ),
           ],
