@@ -55,8 +55,8 @@ class PlantItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 80,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10.0),

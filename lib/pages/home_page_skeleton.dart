@@ -5,15 +5,23 @@ import 'package:flutter/material.dart';
 
 class HomePageSkeleton extends StatelessWidget {
   const HomePageSkeleton(
-      {Key? key, required this.title, required this.subtitle})
+      {Key? key,
+      required this.title,
+      required this.subtitle,
+      required this.changeIp})
       : super(key: key);
   final String title;
   final String subtitle;
+  final Function(String) changeIp;
 
   @override
   Widget build(BuildContext context) {
     return BasePage(
-      header: Header(title: title, subtitle: subtitle),
+      header: Header(
+        title: title,
+        subtitle: subtitle,
+        changeIp: changeIp,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(

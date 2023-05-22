@@ -46,8 +46,8 @@ class Header extends StatelessWidget {
               );
             },
             child: Container(
-              width: 60,
-              height: 60,
+              width: 20,
+              height: 20,
               decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,

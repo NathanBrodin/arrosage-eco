@@ -16,8 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late final Future<Data> dataFuture;
-  late final Data data;
+  Future<Data> dataFuture = Future.value(Data());  // Initialization with dummy data
+  Data? data;
 
   _MyAppState() {
     dataFuture = _initData();
@@ -26,8 +26,8 @@ class _MyAppState extends State<MyApp> {
   Future<Data> _initData() async {
     try {
       data = Data();
-      await data.init();
-      return data;
+      await data!.init();
+      return data!;
     } catch (e) {
       throw Exception('Failed to initialize data: $e');
     }
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
 
   void confirmIp(String ip) {
     setState(() {
-      data.saveIp(ip);
+      data!.saveIp(ip);
       dataFuture = _initData();
     });
   }
@@ -92,9 +92,11 @@ class _MyAppState extends State<MyApp> {
               changeIp: confirmIp,
             );
           } else {
-            return const HomePageSkeleton(
-                title: "Chargement !",
-                subtitle: "Vos données arrivent d'ici peu");
+            return HomePageSkeleton(
+              title: "Chargement !",
+              subtitle: "Vos données arrivent d'ici peu",
+              changeIp: confirmIp,
+            );
           }
         },
       ),

@@ -19,7 +19,7 @@ class Data {
 
   Future<void> init() async {
     plants = await loadPlants();
-    ipAddress = await loadIp();
+    ipAddress = await loadIp();   
     infos = await getFromDevice();
     currentPlant = await getCurrentPlant();
   }
@@ -27,7 +27,7 @@ class Data {
   Future<Infos> getFromDevice() async {
     ipAddress = await loadIp();
 
-    final response = await http.get(Uri.parse('http://$ipAddress:8080/data'));
+    final response = await http.get(Uri.parse('http://$ipAddress/data'));
 
     if (response.statusCode == 200) {
       final infos = json.decode(response.body);
@@ -46,7 +46,7 @@ class Data {
 
   Future<void> sendToDevice(Plant newPlant) async {
     final response = await http.post(
-      Uri.parse('http://$ipAddress:8080/send-data'),
+      Uri.parse('http://$ipAddress/send-data'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
