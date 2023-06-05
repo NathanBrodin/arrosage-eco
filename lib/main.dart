@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<Data> dataFuture = Future.value(Data());  // Initialization with dummy data
+  Future<Data> dataFuture = Future.value(Data());
   Data? data;
 
   _MyAppState() {

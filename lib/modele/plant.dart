@@ -7,6 +7,7 @@ class Plant {
   final double tempMaxDay;
   final double tempMinNight;
   final double tempMaxNight;
+  final String image;
   final bool isCreated;
 
   Plant({
@@ -18,6 +19,7 @@ class Plant {
     required this.tempMaxDay,
     required this.tempMinNight,
     required this.tempMaxNight,
+    this.image = "default.png",
     required this.isCreated,
   });
 
@@ -30,6 +32,7 @@ class Plant {
         tempMaxDay = 30.0,
         tempMinNight = 15.0,
         tempMaxNight = 25.0,
+        image = "default.png",
         isCreated = true;
 
   Plant.errorPlant()
@@ -41,6 +44,7 @@ class Plant {
         tempMaxDay = -1.0,
         tempMinNight = -1.0,
         tempMaxNight = -1.0,
+        image = "default.png",
         isCreated = false;
 
   factory Plant.fromJson(Map<String, dynamic> json) {
@@ -53,6 +57,7 @@ class Plant {
       tempMaxDay: json['temp_max_day'],
       tempMinNight: json['temp_min_night'],
       tempMaxNight: json['temp_max_night'],
+      image: json['image'],
       isCreated: json['isCreated'],
     );
   }
@@ -67,6 +72,7 @@ class Plant {
       'temp_max_day': tempMaxDay,
       'temp_min_night': tempMinNight,
       'temp_max_night': tempMaxNight,
+      'image': image,
       'isCreated': isCreated,
     };
   }

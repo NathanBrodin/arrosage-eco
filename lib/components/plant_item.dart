@@ -66,6 +66,7 @@ class PlantItem extends StatelessWidget {
                     color: Theme.of(context).colorScheme.background,
                   ),
                 ),
+                child: Image.asset("assets/images/${plant.image}"),  // https://www.pngwing.com/
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

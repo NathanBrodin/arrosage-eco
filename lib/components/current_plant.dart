@@ -81,6 +81,7 @@ class _CurrentPlantState extends State<CurrentPlant> {
                     color: Theme.of(context).colorScheme.background,
                   ),
                 ),
+                child: Image.asset("assets/images/${widget.plant.image}"),  // https://www.pngwing.com/
               ),
               InkWell(
                 onTap: () {

@@ -8,6 +8,7 @@
         "temp_max_day": 32.0,
         "temp_min_night": 10.0,
         "temp_max_night": 13.0,
+        "image": "cactus.png",
         "isCreated": false
     },
     {
@@ -19,6 +20,7 @@
         "temp_max_day": 32.0,
         "temp_min_night": 10.0,
         "temp_max_night": 13.0,
+        "image": "tomates.png",
         "isCreated": false
     },
     {
@@ -30,6 +32,7 @@
         "temp_max_day": 32.0,
         "temp_min_night": 10.0,
         "temp_max_night": 13.0,
+        "image": "salads.png",
         "isCreated": false
     },
     {
@@ -41,6 +44,7 @@
         "temp_max_day": 30.0,
         "temp_min_night": 10.0,
         "temp_max_night": 15.0,
+        "image": "lavendes.png",
         "isCreated": false
     },
     {
@@ -52,6 +56,7 @@
         "temp_max_day": 28.0,
         "temp_min_night": 15.0,
         "temp_max_night": 20.0,
+        "image": "basilic.png",
         "isCreated": false
     },
     {
@@ -63,6 +68,7 @@
         "temp_max_day": 28.0,
         "temp_min_night": 10.0,
         "temp_max_night": 15.0,
+        "image": "choux.png",
         "isCreated": false
     }
 ]
