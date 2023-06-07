@@ -25,7 +25,6 @@ class Data {
   }
 
   Future<Infos> getFromDevice() async {
-    ipAddress = await loadIp();
 
     final response = await http.get(Uri.parse('http://$ipAddress/data'));
 

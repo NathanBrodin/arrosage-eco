@@ -27,6 +27,8 @@ class _MyAppState extends State<MyApp> {
     try {
       data = Data();
       await data!.init();
+
+      reloadData();
       return data!;
     } catch (e) {
       throw Exception('Failed to initialize data: $e');
@@ -38,6 +40,18 @@ class _MyAppState extends State<MyApp> {
       data!.saveIp(ip);
       dataFuture = _initData();
     });
+  }
+
+  Future<void> reloadData() async {
+    data!.infos =  await data!.getFromDevice();
+
+    setState(() {});
+
+    await Future.delayed(
+      const Duration(seconds: 2),
+    );
+
+    reloadData();
   }
 
   @override
