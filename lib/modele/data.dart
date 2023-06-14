@@ -19,27 +19,38 @@ class Data {
 
   Future<void> init() async {
     plants = await loadPlants();
-    ipAddress = await loadIp();   
+    ipAddress = await loadIp();
     infos = await getFromDevice();
     currentPlant = await getCurrentPlant();
+
+    sendToDevice(currentPlant);
   }
 
   Future<Infos> getFromDevice() async {
+    try {
+      final response = await http.get(Uri.parse('http://$ipAddress/data'));
 
-    final response = await http.get(Uri.parse('http://$ipAddress/data'));
+      if (response.statusCode == 200) {
+        final infos = json.decode(response.body);
 
-    if (response.statusCode == 200) {
-      final infos = json.decode(response.body);
-
+        return Infos(
+            battery: infos['battery'],
+            moisture: infos['moisture'],
+            sun: infos['sun'],
+            temperature: infos['temperature'],
+            water: infos['water'],
+            currentPlantId: infos['currentPlantId']);
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } on Exception catch (e) {
       return Infos(
-          battery: infos['battery'],
-          moisture: infos['moisture'],
-          sun: infos['sun'],
-          temperature: infos['temperature'],
-          water: infos['water'],
-          currentPlantId: infos['currentPlantId']);
-    } else {
-      throw Exception('Failed to load data');
+          battery: 0,
+          moisture: 0,
+          sun: 0,
+          temperature: 0,
+          water: 0,
+          currentPlantId: 0);
     }
   }
 
@@ -97,11 +108,12 @@ class Data {
   }
 
   Future<String?> loadIp() async {
+    return "192.168.73.67";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? ip = prefs.getString('ip');
 
-    if(ip == null) {
-      throw("IP address not stored");
+    if (ip == null) {
+      throw ("IP address not stored");
     }
 
     return ip;
@@ -131,7 +143,6 @@ class Data {
     Infos deviceInfos = infos;
     int currentPlantId = deviceInfos.currentPlantId;
 
-    // Find the plant with the matching id
     Plant? currentPlant = loadedPlants.firstWhere(
         (plant) => plant.id == currentPlantId,
         orElse: () => Plant.errorPlant());

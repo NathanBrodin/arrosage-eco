@@ -55,8 +55,8 @@ class PlantItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: 80,
-                height: 80,
+                width: 65,
+                height: 65,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10.0),
@@ -75,6 +75,7 @@ class PlantItem extends StatelessWidget {
                     plant.name,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: Colors.white,
+                          fontSize: 22.0,
                         ),
                   ),
                   Text(
