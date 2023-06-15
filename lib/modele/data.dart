@@ -109,6 +109,8 @@ class Data {
 
   Future<String?> loadIp() async {
     return "192.168.73.67";
+
+    // Leger bug, donc brut force de l'addresse IP
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? ip = prefs.getString('ip');
 
